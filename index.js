@@ -1,3 +1,5 @@
+// const Drawing = require("./drawing");
+
 const API_ROOT = "https://test.39916353.xiangwushuo.com/";
 
 const axiosInstance = axios.create({
@@ -30,7 +32,14 @@ var vueIntance = new Vue({
     // 获取二维码链接，并生成图片
     getQrcodeImg: function() {
       console.log("getQrcodeImg start");
-      Drawing.qrc("qrcanvas", this.imgPath, 150, 150);
+      var qrcode = new QRCode("qrcode", {
+        text: "www.baidu.com",
+        width: 56,
+        height: 56,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
     },
 
     updateCanvas: function() {
@@ -74,13 +83,13 @@ var vueIntance = new Vue({
       ctx.font = "19px Georgia";
 
       //画上二维码
-      function convertCanvasToImage(canvas) {
-        var image = new Image();
-        image.src = canvas.toDataURL("image/png");
-        return image;
-      }
-      var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
-      var codeimg = convertCanvasToImage(mycans);
+      // function convertCanvasToImage(canvas) {
+      //   var image = new Image();
+      //   image.src = canvas.toDataURL("image/png");
+      //   return image;
+      // }
+      // var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
+      // var codeimg = convertCanvasToImage(mycans);
       var xw = width - 72 - 29;
       var xh = height - 6 - 72;
       let qrcodewidth = 60;
@@ -97,6 +106,7 @@ var vueIntance = new Vue({
         var qrCodeImg = new Image();
         qrCodeImg.src =
           "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
+
         qrCodeImg.setAttribute("crossOrigin", "Anonymous");
 
         qrCodeImg.onload = function() {
@@ -123,5 +133,6 @@ var vueIntance = new Vue({
   mounted: function() {
     this.drawBgImage();
     // this.drawCanvasUserImg();
+    this.getQrcodeImg();
   }
 });
