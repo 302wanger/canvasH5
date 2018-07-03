@@ -1,5 +1,11 @@
 # H5 海报
 
+## 主目录
+
+1.  index.html 是主文件
+2.  example 是例子文件，不用在意
+3.  libs 里边存了 vue 与第三方库的文件
+
 ### Todo:
 
 1.  canvas 背景图片
