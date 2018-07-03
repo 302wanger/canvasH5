@@ -93,9 +93,22 @@ var vueIntance = new Vue({
         ctx.drawImage(img, 0, 0, width, height);
         // 画文字
         ctx.fillText("Hello world", 10, 50);
-        // 画二维码
+
+        // 画二维码图片
+        var qrCodeImg = new Image();
+        qrCodeImg.src =
+          "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
+        img.setAttribute("crossOrigin", "Anonymous");
+
+        qrCodeImg.onload = function() {
+          ctx.drawImage(qrCodeImg, 225, 540, 100, 100);
+          // var base64 = c.toDataURL("image/png");
+          // var img = document.getElementById("avatar");
+          // img.setAttribute("src", base64);
+        };
+
         // this.drawCanvasUserImg();
-        ctx.drawImage(codeimg, xw, xh, 72, 72);
+        // ctx.drawImage(codeimg, xw, xh, 72, 72);
 
         // //绘制完成,转为图片
         // setTimeout(function() {
