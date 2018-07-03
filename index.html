@@ -11,10 +11,14 @@
 
 <body>
   <div id="app">
-    <canvas id="canvas" width="355" height="637"></canvas>
-    <!-- <input type="text" v-model="exampleContent" />
-    <span>{{ exampleContent }}</span> -->
-    <canvas style="width: 100px;height: 100px;position:fixed;top:0" id="qrcanvas" />
+    <div id="canbox">
+      <canvas id="myCanvas" width="" height=""></canvas>
+    </div>
+    <img class="canimg" src="#" />
+
+    <div id="qrcode">
+      <canvas style="width: 100px;height: 100px;position:fixed;top:0" id="qrcanvas" />
+    </div>
   </div>
 
   <script src="libs/vue.min.js "></script>

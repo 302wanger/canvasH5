@@ -1,78 +1,19 @@
-// Todo:
-// 1. 获取id
-// 2. 使用canvas生成图片
-//   2.1:获取背景图片
-
-// 3.
-
 const API_ROOT = "https://test.39916353.xiangwushuo.com/";
 
 const axiosInstance = axios.create({
-  baseURL: "",
-  withCredentials: true
+  baseURL: ""
+  // withCredentials: true
 });
-
-// const appInstance = new Vue({
-//   el: "#app",
-//   data: {
-//     isFirst: false,
-//     companyCode: "",
-//     expressNumber: "",
-//     expressData: {},
-//     dayTime: []
-//   },
-
-//   methods: {
-//     getQueryParams: function() {
-//       var params = {};
-//       var parts = location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
-//         m,
-//         key,
-//         value
-//       ) {
-//         params[key] = value;
-//       });
-
-//       return params;
-//     },
-//     // // canvas绘制海报
-//     // drawPhoto: function() {
-//     //   //获取Canvas对象(画布)
-//     //   var canvas = document.getElementById("myCanvas");
-//     //   //简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
-//     //   if (canvas.getContext) {
-//     //     //获取对应的CanvasRenderingContext2D对象(画笔)
-//     //     var ctx = canvas.getContext("2d");
-
-//     //     //创建新的图片对象
-//     //     var img = new Image();
-//     //     //指定图片的URL
-//     //     img.src = "http://www.365mini.com/image/google_logo.png";
-//     //     //浏览器加载图片完毕后再绘制图片
-//     //     img.onload = function() {
-//     //       //以Canvas画布上的坐标(10,10)为起始点，绘制图像
-//     //       //图像的宽度和高度分别缩放到350px和100px
-//     //       ctx.drawImage(img, 10, 10, 350, 100);
-//     //     };
-//     //   }
-//     // }
-
-//   },
-//   mounted: function() {
-//     // this.drawPhoto();
-//     this.draw();
-//   }
-// });
 
 var vueIntance = new Vue({
   el: "#app",
   data: {
-    exampleContent: "This is TEXT",
     bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
     imgPath:
       "https://imgs-1253854453.cossh.myqcloud.com/34430437579ac6c9d1af3c1cd3767df2.png"
   },
   methods: {
+    // 查询页面参数
     getQueryParams: function() {
       var params = {};
       var parts = location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
@@ -85,6 +26,7 @@ var vueIntance = new Vue({
 
       return params;
     },
+
     // 获取二维码链接，并生成图片
     getQrcodeImg: function() {
       console.log("getQrcodeImg start");
@@ -99,57 +41,50 @@ var vueIntance = new Vue({
     //   ctx.font = "20px Georgia";
     //   ctx.fillText(this.exampleContent, 10, 50);
     // },
-    drawPhoto: function() {
-      var canvas = document.getElementById("canvas");
-      var ctx = canvas.getContext("2d");
 
-      // 画背景图
-      ctx.fillStyle = "rgb(200,0,0)";
-      ctx.fillRect(0, 0, 675, 667);
-
-      // 画二维码图
+    // 绘制背景图
+    drawBgImage: function() {
+      //画海报
+      var width = document.getElementById("canbox").offsetWidth; //宽度
+      var height = document.getElementById("canbox").offsetHeight; // 高度
+      var c = document.getElementById("myCanvas");
+      c.width = width;
+      c.height = height;
+      var ctx = c.getContext("2d");
+      //首先画上背景图
       var img = new Image();
+      img.src =
+        "http://ww1.sinaimg.cn/large/41e13d0bgy1fswrrra7fxj20ku0kuwfo.jpg";
+      img.setAttribute("crossOrigin", "Anonymous");
+      //名字的属性
+      var x_bot = height - 44;
+      ctx.font = "19px Georgia";
+
+      // img.src =
+      //   "https://nos.netease.com/easyread/fle/a0df1d4009c7a2ec5fee/1524215500140/avatar.png?" +
+      //   +new Date();
+
       img.onload = () => {
         // 画图片
-        // ctx.drawImage(img, 160, 500, 100, 100);
-        ctx.drawImage(img, 0, 0, 375, 812);
-        // toImage
-        // var dataImg = new Image();
-        // dataImg.src = canvas.toDataURL("image/png");
-        // document.body.appendChild(dataImg); // 长按图片保存
-      };
-      img.crossOrigin = "anonymous";
-      img.src =
-        "https://nos.netease.com/easyread/fle/a0df1d4009c7a2ec5fee/1524215500140/avatar.png?" +
-        +new Date();
+        ctx.drawImage(img, 0, 0, width, height);
+        // 画文字
+        ctx.fillText("Hello world", 10, 50);
 
-      // 写字
-      ctx.font = "20px Georgia";
-      ctx.fillText(this.exampleContent, 10, 50);
-    },
-
-    //拿到数据后开始画背景大图 想法很简单就是把图片画到canvas中然后在画布上再画头像文字让后转成img
-    drawCanvasBgImg: function() {
-      var vm = this;
-      var canvas = document.createElement("canvas");
-      var ctx = canvas.getContext("2d");
-      var clientWidth = this.getWindowInfo().width; //获取屏幕宽度用于canvas宽度自适应移动端屏幕
-      var dpr = this.getWindowInfo().dpr;
-      ctx.globalCompositeOperation = "source-atop"; //** 坑锯齿感觉没什么用不知道是不是用错地方了 **
-      canvas.width = dpr * clientWidth; //由于手机屏幕时retina屏，都会多倍渲染，用dpr来动态设置画布宽高，避免图片模糊
-      canvas.height = (dpr * clientWidth * 609) / 375; //去掉微信头部的状态栏应该是603 没搞懂603还是不能让图片满屏直接多加到了609
-      var img = new Image();
-      img.crossOrigin = ""; //死坑的图片跨域 （img.crossOrigin = "Anonymous"这种写法还是不能显示base64格式图片）
-      img.src = this.bgUrl;
-      img.onload = function() {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        //绘制完成,转为图片
+        setTimeout(function() {
+          //在ios上无法在画完之后取到整个画布内容，加了个settimeout
+          var bigcan = document.getElementsByClassName("canvas")[0];
+          let images = new Image();
+          images.src = bigcan.toDataURL("image/png");
+          images.setAttribute("crossOrigin", "Anonymous");
+          document
+            .getElementsByClassName("canimg")
+            .attr("src", bigcan.toDataURL("image/png"));
+        }, 0);
       };
     }
   },
   mounted: function() {
-    // this.updateCanvas();
-    this.drawPhoto();
-    this.getQrcodeImg();
-    // this.drawCanvasBgImg();
+    this.drawBgImage();
   }
 });
