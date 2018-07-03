@@ -83,6 +83,7 @@ var vueIntance = new Vue({
       var codeimg = convertCanvasToImage(mycans);
       var xw = width - 72 - 29;
       var xh = height - 6 - 72;
+      let qrcodewidth = 60;
 
       // img.src =
       //   "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png?" +
@@ -98,17 +99,14 @@ var vueIntance = new Vue({
         var qrCodeImg = new Image();
         qrCodeImg.src =
           "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
-        img.setAttribute("crossOrigin", "Anonymous");
+        qrCodeImg.setAttribute("crossOrigin", "Anonymous");
 
         qrCodeImg.onload = function() {
-          ctx.drawImage(qrCodeImg, 225, 540, 100, 100);
+          ctx.drawImage(qrCodeImg, xw, xh, qrcodewidth, qrcodewidth);
           // var base64 = c.toDataURL("image/png");
           // var img = document.getElementById("avatar");
           // img.setAttribute("src", base64);
         };
-
-        // this.drawCanvasUserImg();
-        // ctx.drawImage(codeimg, xw, xh, 72, 72);
 
         // //绘制完成,转为图片
         // setTimeout(function() {
