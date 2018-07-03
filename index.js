@@ -12,7 +12,8 @@ var vueIntance = new Vue({
   data: {
     bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
     imgPath:
-      "https://imgs-1253854453.cossh.myqcloud.com/34430437579ac6c9d1af3c1cd3767df2.png"
+      "https://imgs-1253854453.cossh.myqcloud.com/34430437579ac6c9d1af3c1cd3767df2.png",
+    qrCodeUrl: "www.baidu.com"
   },
   methods: {
     // 查询页面参数
@@ -33,7 +34,7 @@ var vueIntance = new Vue({
     getQrcodeImg: function() {
       console.log("getQrcodeImg start");
       var qrcode = new QRCode("qrcode", {
-        text: "www.baidu.com",
+        text: this.qrCodeUrl,
         width: 56,
         height: 56,
         colorDark: "#000000",
