@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="index.css">
+  <title>分享海报</title>
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="canvas" width="355" height="637"></canvas>
+    <!-- <input type="text" v-model="exampleContent" />
+    <span>{{ exampleContent }}</span> -->
+    <canvas style="width: 100px;height: 100px;position:fixed;top:0" id="qrcanvas" />
+  </div>
+
+  <script src="libs/vue.min.js "></script>
+  <script src="libs/axios.min.js"></script>
+  <script src="libs/qrCode.js"></script>
+  <script src="libs/drawing.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

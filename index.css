@@ -1,0 +1,97 @@
+body {
+  font-size: 12px;
+  font-family: PingFangSC;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: normal;
+}
+
+.track-list-item {
+  line-height: 18px;
+  color: #999;
+  margin-top: 27px;
+}
+
+.first {
+  color: #01c13a;
+}
+
+.track-list-item-time {
+  margin-right: 14px;
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 75px;
+  text-align: right;
+}
+.track-list-item-time:after {
+  content: "";
+  height: 50px;
+  border-right: 1px solid #f0f0f0;
+  position: absolute;
+  right: -3px;
+  top: 8px;
+}
+
+.track-list-item-txt:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: #d8d8d8;
+  position: absolute;
+  left: 2px;
+  top: 7px;
+  margin-left: -6px;
+  border-radius: 50%;
+}
+
+.lastRemark:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: #01c13a;
+  position: absolute;
+  left: 2px;
+  top: 7px;
+  margin-left: -6px;
+  border-radius: 50%;
+}
+.firstLine:after {
+  content: "";
+  height: 50px;
+  border-right: none;
+  position: absolute;
+  right: -3px;
+  top: 2px;
+}
+.track-list-item-txt {
+  max-width: 192px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 13px;
+}
+.track-list-item-name {
+  position: relative;
+  top: -12px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 113px;
+}
+.track-list-item-phone {
+  position: relative;
+  top: -8px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 113px;
+  text-decoration: none;
+  color: #999;
+}
+
+.footer {
+  height: 300px;
+}
+
+/*  */
