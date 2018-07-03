@@ -48,7 +48,7 @@ var vueIntance = new Vue({
 
     //   var codeimg = new Image();
     //   codeimg.src =
-    //     "https://nos.netease.com/easyread/fle/a0df1d4009c7a2ec5fee/1524215500140/avatar.png";
+    //     "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
     //   codeimg.setAttribute("crossOrigin", "Anonymous");
     //   img.onload = function() {
     //     ctx.drawImage(codeimg, 10, 10, 72, 72);
@@ -67,7 +67,7 @@ var vueIntance = new Vue({
       //首先画上背景图
       var img = new Image();
       img.src =
-        "http://ww1.sinaimg.cn/large/41e13d0bgy1fswrrra7fxj20ku0kuwfo.jpg";
+        "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg";
       img.setAttribute("crossOrigin", "Anonymous");
       //名字的属性
       var x_bot = height - 44;
@@ -85,7 +85,7 @@ var vueIntance = new Vue({
       var xh = height - 6 - 72;
 
       // img.src =
-      //   "https://nos.netease.com/easyread/fle/a0df1d4009c7a2ec5fee/1524215500140/avatar.png?" +
+      //   "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png?" +
       //   +new Date();
 
       img.onload = () => {
