@@ -92,8 +92,6 @@ var vueIntance = new Vue({
       img.onload = () => {
         // 画图片
         ctx.drawImage(img, 0, 0, width, height);
-        // 画文字
-        ctx.fillText("Hello world", 10, 50);
 
         // 画二维码图片
         var qrCodeImg = new Image();
