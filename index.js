@@ -1,5 +1,3 @@
-// const Drawing = require("./drawing");
-
 const API_ROOT = "https://test.39916353.xiangwushuo.com/";
 
 const axiosInstance = axios.create({
@@ -13,7 +11,7 @@ var vueIntance = new Vue({
     bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
     imgPath:
       "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
-    qrCodeUrl: "www.baidu.com"
+    qrCodeUrl: "www.jd.com"
   },
   methods: {
     // 查询页面参数
@@ -49,7 +47,6 @@ var vueIntance = new Vue({
       return image;
     },
 
-    // 绘制背景图
     drawBgImage: function() {
       //画海报
       var width = document.getElementById("canbox").offsetWidth; //宽度
@@ -58,12 +55,12 @@ var vueIntance = new Vue({
       c.width = width;
       c.height = height;
       var ctx = c.getContext("2d");
-      //首先画上背景图
+      //背景图设置
       var img = new Image();
       img.src = this.imgPath;
       img.setAttribute("crossOrigin", "Anonymous");
 
-      // 二维码图片链接
+      // 二维码图片设置
       var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
       var codeimg = this.convertCanvasToImage(mycans);
       var xw = width - 72 - 29;
