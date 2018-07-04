@@ -8,7 +8,40 @@ const axiosInstance = axios.create({
 var h5Intance = new Vue({
   el: "#app",
   data: {
-    expressData: {}
+    expressData: {
+      data: {
+        bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
+        imgPath:
+          "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
+        qrCodeUrl: "www.jd.com",
+        poster_url: "",
+        list: [
+          {
+            type: "qrcode",
+            code: "xxxxx",
+            width: 100,
+            height: 100,
+            x: 0,
+            y: 0
+          },
+          {
+            type: "image",
+            url: "",
+            width: 100,
+            height: 100,
+            x: 0,
+            y: 0
+          },
+          {
+            type: "text",
+            text: "",
+            color: "",
+            x: 0,
+            y: 0
+          }
+        ]
+      }
+    }
   },
   methods: {
     getImgUrl: function() {
@@ -23,8 +56,8 @@ var h5Intance = new Vue({
             } else {
               that.expressData = response.data.data;
               // 执行canvas绘图
-              that.getQrcodeImg();
-              that.drawBgImage();
+              // that.getQrcodeImg();
+              // that.drawBgImage();
             }
           }
         })
@@ -50,7 +83,7 @@ var h5Intance = new Vue({
     // 获取二维码链接，并生成图片
     getQrcodeImg: function() {
       var qrcode = new QRCode("qrcode", {
-        text: this.expressData.qrCodeUrl,
+        text: this.expressData.data.qrCodeUrl,
         width: 56,
         height: 56,
         colorDark: "#000000",
@@ -75,12 +108,12 @@ var h5Intance = new Vue({
       var ctx = c.getContext("2d");
       //背景图设置
       var img = new Image();
-      img.src = this.expressData.imgPath;
+      img.src = this.expressData.data.imgPath;
       img.setAttribute("crossOrigin", "Anonymous");
 
       // 二维码图片设置
       var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
-      var codeimg = this.convertCanvasToImage(mycans);
+      var qrCodeimg = this.convertCanvasToImage(mycans);
       var xw = width - 72 - 39;
       var xh = height - 6 - 120;
       let qrcodewidth = 80;
@@ -89,11 +122,28 @@ var h5Intance = new Vue({
         // 画背景图
         ctx.drawImage(img, 0, 0, width, height);
         // 画二维码
-        ctx.drawImage(codeimg, xw, xh, qrcodewidth, qrcodewidth);
+        ctx.drawImage(qrCodeimg, xw, xh, qrcodewidth, qrcodewidth);
+
+        // 绘制头像
+        ctx.font = "48px serif";
+        ctx.fillText("Hello world", 10, 50);
+        ctx.drawImage(qrCodeimg, 20, 50, qrcodewidth, qrcodewidth);
+
+        // 绘制商品
       };
+    },
+
+    previewImage: function(e) {
+      console.log("previewImage click --->>>");
+      wx.previewImage({
+        current: e.currentTarget.dataset.url,
+        urls: [e.currentTarget.dataset.url]
+      });
     }
   },
   mounted: function() {
-    this.getImgUrl();
+    // this.getImgUrl();
+    this.getQrcodeImg();
+    this.drawBgImage();
   }
 });
