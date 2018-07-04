@@ -97,6 +97,17 @@ var h5Intance = new Vue({
       image.src = canvas.toDataURL("image/png");
       return image;
     },
+    // 绘制圆形头像
+    circleImg: function(ctx, img, x, y, r) {
+      ctx.save();
+      var d = 2 * r;
+      var cx = x + r;
+      var cy = y + r;
+      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+      ctx.clip();
+      ctx.drawImage(img, x, y, d, d);
+      ctx.restore();
+    },
 
     drawBgImage: function() {
       //画海报
@@ -124,12 +135,13 @@ var h5Intance = new Vue({
         // 画二维码
         ctx.drawImage(qrCodeimg, xw, xh, qrcodewidth, qrcodewidth);
 
-        // 绘制头像
-        ctx.font = "48px serif";
-        ctx.fillText("Hello world", 10, 50);
-        ctx.drawImage(qrCodeimg, 20, 50, qrcodewidth, qrcodewidth);
+        // 画头像与文字
+        ctx.font = "18px serif";
+        ctx.fillText("Hello world", 150, 50);
+        this.circleImg(ctx, img, 100, 20, 20);
+        // 画商品
 
-        // 绘制商品
+        // 画商品描述
       };
     },
 
