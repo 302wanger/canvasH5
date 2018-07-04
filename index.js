@@ -81,9 +81,9 @@ var h5Intance = new Vue({
       // 二维码图片设置
       var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
       var codeimg = this.convertCanvasToImage(mycans);
-      var xw = width - 72 - 29;
-      var xh = height - 6 - 72;
-      let qrcodewidth = 60;
+      var xw = width - 72 - 39;
+      var xh = height - 6 - 120;
+      let qrcodewidth = 80;
 
       img.onload = () => {
         // 画背景图
