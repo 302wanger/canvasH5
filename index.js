@@ -12,7 +12,7 @@ var vueIntance = new Vue({
   data: {
     bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
     imgPath:
-      "https://imgs-1253854453.cossh.myqcloud.com/34430437579ac6c9d1af3c1cd3767df2.png",
+      "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
     qrCodeUrl: "www.baidu.com"
   },
   methods: {
@@ -43,27 +43,11 @@ var vueIntance = new Vue({
       });
     },
 
-    updateCanvas: function() {
-      var canvas = document.getElementById("canvas");
-      ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "black";
-      ctx.font = "20px Georgia";
-      ctx.fillText(this.exampleContent, 10, 50);
+    convertCanvasToImage: function(canvas) {
+      var image = new Image();
+      image.src = canvas.toDataURL("image/png");
+      return image;
     },
-
-    // drawCanvasUserImg: function() {
-    //   let canvas = document.getElementById("canvas");
-    //   ctx = canvas.getContext("2d");
-
-    //   var codeimg = new Image();
-    //   codeimg.src =
-    //     "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
-    //   codeimg.setAttribute("crossOrigin", "Anonymous");
-    //   img.onload = function() {
-    //     ctx.drawImage(codeimg, 10, 10, 72, 72);
-    //   };
-    // },
 
     // 绘制背景图
     drawBgImage: function() {
@@ -76,64 +60,26 @@ var vueIntance = new Vue({
       var ctx = c.getContext("2d");
       //首先画上背景图
       var img = new Image();
-      img.src =
-        "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg";
+      img.src = this.imgPath;
       img.setAttribute("crossOrigin", "Anonymous");
-      //名字的属性
-      var x_bot = height - 44;
-      ctx.font = "19px Georgia";
 
-      //画上二维码
-      // function convertCanvasToImage(canvas) {
-      //   var image = new Image();
-      //   image.src = canvas.toDataURL("image/png");
-      //   return image;
-      // }
-      // var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
-      // var codeimg = convertCanvasToImage(mycans);
+      // 二维码图片链接
+      var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
+      var codeimg = this.convertCanvasToImage(mycans);
       var xw = width - 72 - 29;
       var xh = height - 6 - 72;
       let qrcodewidth = 60;
 
-      // img.src =
-      //   "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png?" +
-      //   +new Date();
-
       img.onload = () => {
-        // 画图片
+        // 画背景图
         ctx.drawImage(img, 0, 0, width, height);
-
-        // 画二维码图片
-        var qrCodeImg = new Image();
-        qrCodeImg.src =
-          "http://imgs-1253854453.image.myqcloud.com/3c52a8d144fe51e96fa4bd12068d5d54.png";
-
-        qrCodeImg.setAttribute("crossOrigin", "Anonymous");
-
-        qrCodeImg.onload = function() {
-          ctx.drawImage(qrCodeImg, xw, xh, qrcodewidth, qrcodewidth);
-          // var base64 = c.toDataURL("image/png");
-          // var img = document.getElementById("avatar");
-          // img.setAttribute("src", base64);
-        };
-
-        // //绘制完成,转为图片
-        // setTimeout(function() {
-        //   //在ios上无法在画完之后取到整个画布内容，加了个settimeout
-        //   var bigcan = document.getElementsByTagName("canvas")[0];
-        //   let images = new Image();
-        //   images.src = bigcan.toDataURL("image/png");
-        //   images.setAttribute("crossOrigin", "Anonymous");
-        //   document
-        //     .getElementsByClassName("canimg")
-        //     .attr("src", bigcan.toDataURL("image/png"));
-        // }, 0);
+        // 画二维码
+        ctx.drawImage(codeimg, xw, xh, qrcodewidth, qrcodewidth);
       };
     }
   },
   mounted: function() {
-    this.drawBgImage();
-    // this.drawCanvasUserImg();
     this.getQrcodeImg();
+    this.drawBgImage();
   }
 });
