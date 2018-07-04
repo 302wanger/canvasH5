@@ -8,7 +8,8 @@
 
 ### Todo:
 
-1.  canvas 背景图片
-2.  canvas 链接转为二维码图片
-3.  把几个元素放在一个 canvas 画出来
+1.  canvas 背景图片:done
+2.  canvas 链接转为二维码图片: done
+3.  把几个元素放在一个 canvas 画出来: done
 4.  长按图片保存
+5.  动态获取数据： easy_moke 生成假数据

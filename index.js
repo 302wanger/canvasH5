@@ -1,19 +1,38 @@
-const API_ROOT = "https://test.39916353.xiangwushuo.com/";
+const API_ROOT = "https://www.easy-mock.com/mock/5b19307a3f6ddd76d8ff7cd6/";
 
 const axiosInstance = axios.create({
   baseURL: ""
   // withCredentials: true
 });
 
-var vueIntance = new Vue({
+var h5Intance = new Vue({
   el: "#app",
   data: {
-    bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
-    imgPath:
-      "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
-    qrCodeUrl: "www.jd.com"
+    expressData: {}
   },
   methods: {
+    getImgUrl: function() {
+      var that = this;
+      const params = {};
+      axiosInstance
+        .post(API_ROOT + "imgUrl", params)
+        .then(function(response) {
+          if (response && response.data) {
+            if (!response.data.success) {
+              console.log(response.data.err.em);
+            } else {
+              that.expressData = response.data.data;
+              // 执行canvas绘图
+              that.getQrcodeImg();
+              that.drawBgImage();
+            }
+          }
+        })
+        .catch(function(error) {
+          console.log("error --->>>---", error);
+        });
+    },
+
     // 查询页面参数
     getQueryParams: function() {
       var params = {};
@@ -30,9 +49,8 @@ var vueIntance = new Vue({
 
     // 获取二维码链接，并生成图片
     getQrcodeImg: function() {
-      console.log("getQrcodeImg start");
       var qrcode = new QRCode("qrcode", {
-        text: this.qrCodeUrl,
+        text: this.expressData.qrCodeUrl,
         width: 56,
         height: 56,
         colorDark: "#000000",
@@ -57,7 +75,7 @@ var vueIntance = new Vue({
       var ctx = c.getContext("2d");
       //背景图设置
       var img = new Image();
-      img.src = this.imgPath;
+      img.src = this.expressData.imgPath;
       img.setAttribute("crossOrigin", "Anonymous");
 
       // 二维码图片设置
@@ -76,7 +94,6 @@ var vueIntance = new Vue({
     }
   },
   mounted: function() {
-    this.getQrcodeImg();
-    this.drawBgImage();
+    this.getImgUrl();
   }
 });
