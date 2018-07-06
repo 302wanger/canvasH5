@@ -12,81 +12,47 @@ var h5Intance = new Vue({
       data: {
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/86b56587859345e7792a71a1b2e07fc2.jpeg",
-        circlePath:
-          "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
-        qrCodeUrl: "www.baidu.com",
+        qrCodeUrl: {
+          code: "www.jd.com",
+          width: 50,
+          height: 50,
+          x: 10,
+          y: 100
+        },
         list: [
           {
-            type: "qrcode",
-            code: "xxxxx",
-            width: 100,
-            height: 100,
-            x: 10,
-            y: 100
-          },
-          {
             type: "image",
-            url: "",
+            imgUrl:
+              "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
             width: 100,
             height: 100,
             x: 20,
             y: 200
           },
           {
-            type: "text",
-            text: "我正在0元领取这个宝贝",
-            color: "",
-            font: "",
-            x: 30,
-            y: 300
-          },
-          {
-            type: "text",
-            text: "已经拼2081团",
-            color: "",
-            font: "",
-            x: 40,
+            type: "image",
+            imgUrl:
+              "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
+            width: 100,
+            height: 100,
+            x: 120,
             y: 400
           },
           {
             type: "text",
-            text: "0元白拿",
-            color: "",
-            font: "",
-            x: 50,
-            y: 500
+            text: "我正在0元领取这个宝贝",
+            color: "#f00",
+            font: "14",
+            x: 30,
+            y: 100
           },
           {
             type: "text",
-            text: "长摁识别小程序码，马上0元拿",
-            color: "",
-            font: "",
-            x: 60,
-            y: 600
-          },
-          {
-            type: "text",
-            text: "现在扫码立即免费领取10923件宝贝",
-            color: "",
-            font: "",
-            x: 70,
-            y: 620
-          },
-          {
-            type: "text",
-            text: "享物说",
-            color: "",
-            font: "30px",
-            x: 70,
-            y: 640
-          },
-          {
-            type: "text",
-            text: "国内首家好物互送平台",
-            color: "",
-            font: "",
-            x: 70,
-            y: 660
+            text: "已经拼2081团",
+            color: "#000",
+            font: "12",
+            x: 1000,
+            y: 400
           }
         ]
       }
@@ -159,13 +125,13 @@ var h5Intance = new Vue({
     },
 
     // 绘制图片
-    myDrawImg: function(imgUrl, x, y, width, height) {
+    myDrawImg: function(data) {
       let ctx = document.getElementById("myCanvas").getContext("2d");
       let img = new Image();
       img.onload = function() {
-        ctx.drawImage(img, x, y, width, height);
+        ctx.drawImage(img, data.x, data.y, data.width, data.height);
       };
-      img.src = imgUrl;
+      img.src = data.imgUrl;
     },
 
     // 绘制文字
@@ -200,16 +166,14 @@ var h5Intance = new Vue({
         ctx.drawImage(img, 0, 0, width, height);
         // 画二维码
         ctx.drawImage(qrCodeimg, xw, 420, qrcodewidth, qrcodewidth);
-        // 画头像
-        this.myDrawImg(this.expressData.data.circlePath, 150, 100, 50, 50);
-        // 画商品
-        this.myDrawImg(this.expressData.data.imgPath, 100, 200, 200, 200);
 
-        // 生成所有文案
+        // 生成文案与图片
         for (var i = 0; i < this.expressData.data.list.length; i++) {
           let value = this.expressData.data.list[i];
           if (value.type == "text") {
             this.drawText(value);
+          } else if (value.type == "image") {
+            this.myDrawImg(value);
           }
         }
       };
@@ -225,7 +189,10 @@ var h5Intance = new Vue({
   },
   mounted: function() {
     // this.getImgUrl();
-    this.getQrcodeImg(this.expressData.data.qrCodeUrl, 56);
+    this.getQrcodeImg(
+      this.expressData.data.qrCodeUrl.code,
+      this.expressData.data.qrCodeUrl.width
+    );
     this.drawBgImage();
   }
 });
