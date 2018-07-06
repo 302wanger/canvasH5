@@ -12,6 +12,8 @@ var h5Intance = new Vue({
       data: {
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/86b56587859345e7792a71a1b2e07fc2.jpeg",
+        circlePath:
+          "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
         qrCodeUrl: "www.baidu.com",
         list: [
           {
@@ -185,6 +187,13 @@ var h5Intance = new Vue({
       var xh = height - 6 - 120;
       let qrcodewidth = 100;
 
+      var circle = new Image();
+      circle.src = this.expressData.data.circlePath;
+
+      // circle.onload = function() {
+      //   this.circleImg(ctx, circle, 100, 20, 20);
+      // };
+
       img.onload = () => {
         // 画背景图
         ctx.drawImage(img, 0, 0, width, height);
@@ -194,7 +203,6 @@ var h5Intance = new Vue({
         // 画头像与文字
         // ctx.font = "18px serif";
         // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
-
         this.circleImg(ctx, img, 100, 20, 20);
 
         // // 画商品
