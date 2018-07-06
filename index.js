@@ -19,6 +19,8 @@ var h5Intance = new Vue({
         descTitle: "迪士尼儿童背带吸管",
         pinTuanInfo: "已经拼2081团",
         pinTuanSlogin: "0元白拿",
+        xwsShare: "长摁识别小程序码，马上0元拿",
+        wxsProduct: "现在扫码立即免费领取10923件宝贝",
         list: [
           {
             type: "qrcode",
@@ -154,7 +156,9 @@ var h5Intance = new Vue({
         ctx.fillText(this.expressData.data.pinTuanInfo, 50, 450);
         ctx.fillText(this.expressData.data.pinTuanSlogin, 50, 500);
 
-        // 享物说
+        // 分享
+        ctx.fillText(this.expressData.data.xwsShare, 20, 600);
+        ctx.fillText(this.expressData.data.wxsProduct, 20, 630);
       };
     },
 
