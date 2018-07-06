@@ -11,8 +11,8 @@ var h5Intance = new Vue({
     expressData: {
       data: {
         imgPath:
-          "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
-        qrCodeUrl: "www.jd.com",
+          "http://imgs-1253854453.image.myqcloud.com/86b56587859345e7792a71a1b2e07fc2.jpeg",
+        qrCodeUrl: "www.baidu.com",
         list: [
           {
             type: "qrcode",
@@ -155,6 +155,7 @@ var h5Intance = new Vue({
       ctx.drawImage(img, x, y, d, d);
       ctx.restore();
     },
+
     // 绘制二维码
 
     // 绘制文字
@@ -193,7 +194,9 @@ var h5Intance = new Vue({
         // 画头像与文字
         // ctx.font = "18px serif";
         // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
+
         this.circleImg(ctx, img, 100, 20, 20);
+
         // // 画商品
         ctx.drawImage(img, 100, 100, 200, 200);
 
