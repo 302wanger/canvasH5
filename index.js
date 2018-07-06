@@ -158,7 +158,15 @@ var h5Intance = new Vue({
       ctx.restore();
     },
 
-    // 绘制二维码
+    // 绘制图片
+    myDrawImg: function(imgUrl, x, y, width, height) {
+      let ctx = document.getElementById("myCanvas").getContext("2d");
+      let img = new Image();
+      img.onload = function() {
+        ctx.drawImage(img, x, y, width, height);
+      };
+      img.src = imgUrl;
+    },
 
     // 绘制文字
     drawText: function(data) {
@@ -203,10 +211,13 @@ var h5Intance = new Vue({
         // 画头像与文字
         // ctx.font = "18px serif";
         // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
-        this.circleImg(ctx, img, 100, 20, 20);
+        // this.circleImg(ctx, img, 100, 20, 20);
 
         // // 画商品
-        ctx.drawImage(img, 100, 100, 200, 200);
+
+        this.myDrawImg(this.expressData.data.circlePath, 150, 100, 50, 50);
+
+        this.myDrawImg(this.expressData.data.imgPath, 100, 200, 200, 200);
 
         // 生成所有文案
         for (var i = 0; i < this.expressData.data.list.length; i++) {
