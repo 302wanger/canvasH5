@@ -195,28 +195,14 @@ var h5Intance = new Vue({
       var xh = height - 6 - 120;
       let qrcodewidth = 100;
 
-      var circle = new Image();
-      circle.src = this.expressData.data.circlePath;
-
-      // circle.onload = function() {
-      //   this.circleImg(ctx, circle, 100, 20, 20);
-      // };
-
       img.onload = () => {
         // 画背景图
         ctx.drawImage(img, 0, 0, width, height);
         // 画二维码
         ctx.drawImage(qrCodeimg, xw, 420, qrcodewidth, qrcodewidth);
-
-        // 画头像与文字
-        // ctx.font = "18px serif";
-        // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
-        // this.circleImg(ctx, img, 100, 20, 20);
-
-        // // 画商品
-
+        // 画头像
         this.myDrawImg(this.expressData.data.circlePath, 150, 100, 50, 50);
-
+        // 画商品
         this.myDrawImg(this.expressData.data.imgPath, 100, 200, 200, 200);
 
         // 生成所有文案
