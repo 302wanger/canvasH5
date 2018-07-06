@@ -10,7 +10,6 @@ var h5Intance = new Vue({
   data: {
     expressData: {
       data: {
-        bgUrl: "https://mdn.mozillademos.org/files/206/Canvas_backdrop.png",
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
         qrCodeUrl: "www.jd.com",
@@ -129,11 +128,11 @@ var h5Intance = new Vue({
     },
 
     // 获取二维码链接，并生成图片
-    getQrcodeImg: function() {
+    getQrcodeImg: function(url, widthNum) {
       var qrcode = new QRCode("qrcode", {
-        text: this.expressData.data.qrCodeUrl,
-        width: 56,
-        height: 56,
+        text: url,
+        width: widthNum,
+        height: widthNum,
         colorDark: "#000000",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
@@ -156,6 +155,7 @@ var h5Intance = new Vue({
       ctx.drawImage(img, x, y, d, d);
       ctx.restore();
     },
+    // 绘制二维码
 
     // 绘制文字
     drawText: function(data) {
@@ -195,7 +195,7 @@ var h5Intance = new Vue({
         // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
         this.circleImg(ctx, img, 100, 20, 20);
         // // 画商品
-        // ctx.drawImage(img, 100, 100, 200, 200);
+        ctx.drawImage(img, 100, 100, 200, 200);
 
         // 生成所有文案
         for (var i = 0; i < this.expressData.data.list.length; i++) {
@@ -217,7 +217,7 @@ var h5Intance = new Vue({
   },
   mounted: function() {
     // this.getImgUrl();
-    this.getQrcodeImg();
+    this.getQrcodeImg(this.expressData.data.qrCodeUrl, 56);
     this.drawBgImage();
   }
 });
