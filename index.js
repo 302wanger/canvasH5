@@ -14,12 +14,6 @@ var h5Intance = new Vue({
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
         qrCodeUrl: "www.jd.com",
-        // bannerTitle: "我正在0元领取这个宝贝",
-        // descTitle: "迪士尼儿童背带吸管",
-        // pinTuanInfo: "已经拼2081团",
-        // pinTuanSlogin: "0元白拿",
-        // xwsShare: "长摁识别小程序码，马上0元拿",
-        // wxsProduct: "现在扫码立即免费领取10923件宝贝",
         list: [
           {
             type: "qrcode",
@@ -75,7 +69,23 @@ var h5Intance = new Vue({
             color: "",
             font: "",
             x: 70,
-            y: 650
+            y: 620
+          },
+          {
+            type: "text",
+            text: "享物说",
+            color: "",
+            font: "30px",
+            x: 70,
+            y: 640
+          },
+          {
+            type: "text",
+            text: "国内首家好物互送平台",
+            color: "",
+            font: "",
+            x: 70,
+            y: 660
           }
         ]
       }
@@ -131,7 +141,7 @@ var h5Intance = new Vue({
     },
 
     convertCanvasToImage: function(canvas) {
-      var image = new Image();
+      let image = new Image();
       image.src = canvas.toDataURL("image/png");
       return image;
     },
@@ -149,7 +159,7 @@ var h5Intance = new Vue({
 
     // 绘制文字
     drawText: function(data) {
-      var ctx = document.getElementById("myCanvas").getContext("2d");
+      let ctx = document.getElementById("myCanvas").getContext("2d");
       ctx.font = data.font;
       ctx.fillText(data.text, data.x, data.y);
     },
@@ -187,10 +197,9 @@ var h5Intance = new Vue({
         // // 画商品
         // ctx.drawImage(img, 100, 100, 200, 200);
 
-        // 生成所有文字
+        // 生成所有文案
         for (var i = 0; i < this.expressData.data.list.length; i++) {
           let value = this.expressData.data.list[i];
-          console.log("value is --->>>", value);
           if (value.type == "text") {
             this.drawText(value);
           }
