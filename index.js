@@ -14,7 +14,11 @@ var h5Intance = new Vue({
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
         qrCodeUrl: "www.jd.com",
-        poster_url: "",
+        posterUrl: "",
+        bannerTitle: "我正在0元领取这个宝贝",
+        descTitle: "迪士尼儿童背带吸管",
+        pinTuanInfo: "已经拼2081团",
+        pinTuanSlogin: "0元白拿",
         list: [
           {
             type: "qrcode",
@@ -127,21 +131,30 @@ var h5Intance = new Vue({
       var qrCodeimg = this.convertCanvasToImage(mycans);
       var xw = width - 72 - 39;
       var xh = height - 6 - 120;
-      let qrcodewidth = 80;
+      let qrcodewidth = 100;
 
       img.onload = () => {
         // 画背景图
         ctx.drawImage(img, 0, 0, width, height);
         // 画二维码
-        ctx.drawImage(qrCodeimg, xw, xh, qrcodewidth, qrcodewidth);
+        ctx.drawImage(qrCodeimg, xw, 420, qrcodewidth, qrcodewidth);
 
         // 画头像与文字
         ctx.font = "18px serif";
-        ctx.fillText("Hello world", 150, 50);
+        ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
         this.circleImg(ctx, img, 100, 20, 20);
         // 画商品
+        ctx.drawImage(img, 100, 100, 200, 200);
 
         // 画商品描述
+        ctx.font = "18px serif";
+        ctx.fillText(this.expressData.data.descTitle, 50, 350);
+
+        // 拼团情况
+        ctx.fillText(this.expressData.data.pinTuanInfo, 50, 450);
+        ctx.fillText(this.expressData.data.pinTuanSlogin, 50, 500);
+
+        // 享物说
       };
     },
 
