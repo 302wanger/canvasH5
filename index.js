@@ -149,7 +149,6 @@ var h5Intance = new Vue({
         ctx.drawImage(img, 100, 100, 200, 200);
 
         // 画商品描述
-        ctx.font = "18px serif";
         ctx.fillText(this.expressData.data.descTitle, 50, 350);
 
         // 拼团情况
