@@ -14,36 +14,68 @@ var h5Intance = new Vue({
         imgPath:
           "http://imgs-1253854453.image.myqcloud.com/29de096e5e9291b6baa9b40640cf96cf.jpeg",
         qrCodeUrl: "www.jd.com",
-        posterUrl: "",
-        bannerTitle: "我正在0元领取这个宝贝",
-        descTitle: "迪士尼儿童背带吸管",
-        pinTuanInfo: "已经拼2081团",
-        pinTuanSlogin: "0元白拿",
-        xwsShare: "长摁识别小程序码，马上0元拿",
-        wxsProduct: "现在扫码立即免费领取10923件宝贝",
+        // bannerTitle: "我正在0元领取这个宝贝",
+        // descTitle: "迪士尼儿童背带吸管",
+        // pinTuanInfo: "已经拼2081团",
+        // pinTuanSlogin: "0元白拿",
+        // xwsShare: "长摁识别小程序码，马上0元拿",
+        // wxsProduct: "现在扫码立即免费领取10923件宝贝",
         list: [
           {
             type: "qrcode",
             code: "xxxxx",
             width: 100,
             height: 100,
-            x: 0,
-            y: 0
+            x: 10,
+            y: 100
           },
           {
             type: "image",
             url: "",
             width: 100,
             height: 100,
-            x: 0,
-            y: 0
+            x: 20,
+            y: 200
           },
           {
             type: "text",
-            text: "",
+            text: "我正在0元领取这个宝贝",
             color: "",
-            x: 0,
-            y: 0
+            font: "",
+            x: 30,
+            y: 300
+          },
+          {
+            type: "text",
+            text: "已经拼2081团",
+            color: "",
+            font: "",
+            x: 40,
+            y: 400
+          },
+          {
+            type: "text",
+            text: "0元白拿",
+            color: "",
+            font: "",
+            x: 50,
+            y: 500
+          },
+          {
+            type: "text",
+            text: "长摁识别小程序码，马上0元拿",
+            color: "",
+            font: "",
+            x: 60,
+            y: 600
+          },
+          {
+            type: "text",
+            text: "现在扫码立即免费领取10923件宝贝",
+            color: "",
+            font: "",
+            x: 70,
+            y: 650
           }
         ]
       }
@@ -115,6 +147,13 @@ var h5Intance = new Vue({
       ctx.restore();
     },
 
+    // 绘制文字
+    drawText: function(data) {
+      var ctx = document.getElementById("myCanvas").getContext("2d");
+      ctx.font = data.font;
+      ctx.fillText(data.text, data.x, data.y);
+    },
+
     drawBgImage: function() {
       //画海报
       var width = document.getElementById("canbox").offsetWidth; //宽度
@@ -142,22 +181,20 @@ var h5Intance = new Vue({
         ctx.drawImage(qrCodeimg, xw, 420, qrcodewidth, qrcodewidth);
 
         // 画头像与文字
-        ctx.font = "18px serif";
-        ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
+        // ctx.font = "18px serif";
+        // ctx.fillText(this.expressData.data.bannerTitle, 150, 50);
         this.circleImg(ctx, img, 100, 20, 20);
-        // 画商品
-        ctx.drawImage(img, 100, 100, 200, 200);
+        // // 画商品
+        // ctx.drawImage(img, 100, 100, 200, 200);
 
-        // 画商品描述
-        ctx.fillText(this.expressData.data.descTitle, 50, 350);
-
-        // 拼团情况
-        ctx.fillText(this.expressData.data.pinTuanInfo, 50, 450);
-        ctx.fillText(this.expressData.data.pinTuanSlogin, 50, 500);
-
-        // 分享
-        ctx.fillText(this.expressData.data.xwsShare, 20, 600);
-        ctx.fillText(this.expressData.data.wxsProduct, 20, 630);
+        // 生成所有文字
+        for (var i = 0; i < this.expressData.data.list.length; i++) {
+          let value = this.expressData.data.list[i];
+          console.log("value is --->>>", value);
+          if (value.type == "text") {
+            this.drawText(value);
+          }
+        }
       };
     },
 
