@@ -14,48 +14,49 @@ var h5Intance = new Vue({
     expressData: {
       data: {
         imgPath:
-          "http://imgs-1253854453.cossh.myqcloud.com/cf91d87ca37763f4aef7a40fe7c48bee.png",
+          "http://imgs-1253854453.cossh.myqcloud.com/fdbd20b19b6ab2ea2f12b4910ac91d45.png",
         qrCodeUrl: {
-          code: "www.jd.com",
-          width: 50,
-          height: 50,
-          x: 264,
-          y: 420
+          code: "www.jd.comfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf",
+          width: 110,
+          height: 110,
+          x: 224,
+          y: 370
         },
         list: [
           {
             type: "image",
             imgUrl:
-              "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
-            width: 100,
-            height: 100,
-            x: 20,
-            y: 200
+              "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoFN9WMUV2y7un0hvsBbIc5W9Q94nuQlIhBso2Kib6vRXibgUia8pE60W1LTGmGOk4bC7BfsWBia3Xufw/132",
+            width: 50,
+            height: 50,
+            x: 40,
+            y: 53,
+            isCircle: true
           },
           {
             type: "image",
             imgUrl:
-              "http://imgs-1253854453.image.myqcloud.com/67e3ab5de460228a1076f12e9dd908ee.jpg",
-            width: 100,
-            height: 100,
-            x: 120,
-            y: 400
+              "http://imgs-1253854453.cossh.myqcloud.com/0aa8a0e8f25a0f608deefb36c34be39f.jpg",
+            width: 242,
+            height: 242,
+            x: 70,
+            y: 120
           },
           {
             type: "text",
-            text: "我正在0元领取这个宝贝",
+            text: "迪士尼儿童背带",
             color: "#f00",
-            font: "14",
+            font: "24px Airal",
             x: 30,
-            y: 100
+            y: 400
           },
           {
             type: "text",
-            text: "已经拼2081团",
+            text: "2081",
             color: "#000",
-            font: "12",
-            x: 1000,
-            y: 400
+            font: "16px Airal",
+            x: 90,
+            y: 427
           }
         ]
       }
@@ -129,19 +130,22 @@ var h5Intance = new Vue({
 
     // 绘制图片
     myDrawImg: function(data) {
-      // let ctx = document.getElementById("myCanvas").getContext("2d");
       let img = new Image();
       img.onload = () => {
-        this.ctx.drawImage(img, data.x, data.y, data.width, data.height);
+        if (data.isCircle) {
+          this.circleImg(this.ctx, img, data.x, data.y, 25);
+        } else {
+          this.ctx.drawImage(img, data.x, data.y, data.width, data.height);
+        }
       };
       img.src = data.imgUrl;
     },
 
     // 绘制文字
     drawText: function(data) {
-      let ctx = document.getElementById("myCanvas").getContext("2d");
-      ctx.font = data.font;
-      ctx.fillText(data.text, data.x, data.y);
+      console.log(data);
+      this.ctx.font = data.font;
+      this.ctx.fillText(data.text, data.x, data.y);
     },
 
     drawBgImage: function() {
