@@ -8,16 +8,19 @@ const axiosInstance = axios.create({
 var h5Intance = new Vue({
   el: "#app",
   data: {
+    ctx: null,
+    canvas: null,
+    weChatWidth: 375,
     expressData: {
       data: {
         imgPath:
-          "http://imgs-1253854453.image.myqcloud.com/86b56587859345e7792a71a1b2e07fc2.jpeg",
+          "http://imgs-1253854453.cossh.myqcloud.com/cf91d87ca37763f4aef7a40fe7c48bee.png",
         qrCodeUrl: {
           code: "www.jd.com",
           width: 50,
           height: 50,
-          x: 10,
-          y: 100
+          x: 264,
+          y: 420
         },
         list: [
           {
@@ -126,10 +129,10 @@ var h5Intance = new Vue({
 
     // 绘制图片
     myDrawImg: function(data) {
-      let ctx = document.getElementById("myCanvas").getContext("2d");
+      // let ctx = document.getElementById("myCanvas").getContext("2d");
       let img = new Image();
-      img.onload = function() {
-        ctx.drawImage(img, data.x, data.y, data.width, data.height);
+      img.onload = () => {
+        this.ctx.drawImage(img, data.x, data.y, data.width, data.height);
       };
       img.src = data.imgUrl;
     },
@@ -143,12 +146,12 @@ var h5Intance = new Vue({
 
     drawBgImage: function() {
       //画海报
-      var width = document.getElementById("canbox").offsetWidth; //宽度
-      var height = document.getElementById("canbox").offsetHeight; // 高度
-      var c = document.getElementById("myCanvas");
-      c.width = width;
-      c.height = height;
-      var ctx = c.getContext("2d");
+      // var width = document.getElementById("canbox").offsetWidth; //宽度
+      // var height = document.getElementById("canbox").offsetHeight; // 高度
+      // var c = document.getElementById("myCanvas");
+      // c.width = width;
+      // c.height = height;
+      // var ctx = c.getContext("2d");
       //背景图设置
       var img = new Image();
       img.src = this.expressData.data.imgPath;
@@ -157,15 +160,31 @@ var h5Intance = new Vue({
       // 二维码图片设置
       var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
       var qrCodeimg = this.convertCanvasToImage(mycans);
-      var xw = width - 72 - 39;
-      var xh = height - 6 - 120;
-      let qrcodewidth = 100;
 
       img.onload = () => {
+        const width = img.width,
+          height = img.height;
+
+        const canvasWidth = this.weChatWidth;
+        const canvasHeight = parseInt((this.weChatWidth / width) * height);
+
+        this.canvas.width = canvasWidth;
+        this.canvas.height = canvasHeight;
+        img.width = canvasWidth;
+        img.height = canvasHeight;
+        const domObj = document.getElementById("canbox");
+        domObj.style.width = canvasWidth + "px";
+        domObj.style.height = canvasHeight + "px";
         // 画背景图
-        ctx.drawImage(img, 0, 0, width, height);
+        this.ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
         // 画二维码
-        ctx.drawImage(qrCodeimg, xw, 420, qrcodewidth, qrcodewidth);
+        this.ctx.drawImage(
+          qrCodeimg,
+          this.expressData.data.qrCodeUrl.x,
+          this.expressData.data.qrCodeUrl.y,
+          this.expressData.data.qrCodeUrl.width,
+          this.expressData.data.qrCodeUrl.height
+        );
 
         // 生成文案与图片
         for (var i = 0; i < this.expressData.data.list.length; i++) {
@@ -189,6 +208,8 @@ var h5Intance = new Vue({
   },
   mounted: function() {
     // this.getImgUrl();
+    this.canvas = document.getElementById("myCanvas");
+    this.ctx = this.canvas.getContext("2d");
     this.getQrcodeImg(
       this.expressData.data.qrCodeUrl.code,
       this.expressData.data.qrCodeUrl.width
