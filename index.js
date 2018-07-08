@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   // withCredentials: true
 });
 
-var h5Intance = new Vue({
+let h5Intance = new Vue({
   el: "#app",
   data: {
     ctx: null,
@@ -64,7 +64,7 @@ var h5Intance = new Vue({
   },
   methods: {
     getImgUrl: function() {
-      var that = this;
+      let that = this;
       const params = {};
       axiosInstance
         .post(API_ROOT + "imgUrl", params)
@@ -87,8 +87,8 @@ var h5Intance = new Vue({
 
     // 查询页面参数
     getQueryParams: function() {
-      var params = {};
-      var parts = location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
+      let params = {};
+      let parts = location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
         m,
         key,
         value
@@ -101,7 +101,7 @@ var h5Intance = new Vue({
 
     // 获取二维码链接，并生成图片
     getQrcodeImg: function(url, widthNum) {
-      var qrcode = new QRCode("qrcode", {
+      let qrcode = new QRCode("qrcode", {
         text: url,
         width: widthNum,
         height: widthNum,
@@ -119,9 +119,9 @@ var h5Intance = new Vue({
     // 绘制圆形头像
     circleImg: function(ctx, img, x, y, r) {
       ctx.save();
-      var d = 2 * r;
-      var cx = x + r;
-      var cy = y + r;
+      let d = 2 * r;
+      let cx = x + r;
+      let cy = y + r;
       ctx.arc(cx, cy, r, 0, 2 * Math.PI);
       ctx.clip();
       ctx.drawImage(img, x, y, d, d);
@@ -168,13 +168,13 @@ var h5Intance = new Vue({
 
     drawBgImage: function() {
       //背景图设置
-      var img = new Image();
+      let img = new Image();
       img.src = this.expressData.data.imgPath;
       img.setAttribute("crossOrigin", "Anonymous");
 
       // 二维码图片设置
-      var mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
-      var qrCodeimg = this.convertCanvasToImage(mycans);
+      let mycans = document.getElementsByTagName("canvas")[1]; //二维码所在的canvas
+      let qrCodeimg = this.convertCanvasToImage(mycans);
 
       img.onload = () => {
         let canvasWidthResult = this.getDeviceWidth(img);
@@ -191,7 +191,7 @@ var h5Intance = new Vue({
         );
 
         // 生成文案与图片
-        for (var i = 0; i < this.expressData.data.list.length; i++) {
+        for (let i = 0; i < this.expressData.data.list.length; i++) {
           let value = this.expressData.data.list[i];
           if (value.type == "text") {
             this.drawText(value);
