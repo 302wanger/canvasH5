@@ -146,6 +146,25 @@ var h5Intance = new Vue({
       this.ctx.font = data.font;
       this.ctx.fillText(data.text, data.x, data.y);
     },
+    getDeviceWidth: function(img) {
+      const width = img.width;
+      const canvasWidth = this.weChatWidth;
+      this.canvas.width = canvasWidth;
+      img.width = canvasWidth;
+      const domObj = document.getElementById("canbox");
+      domObj.style.width = canvasWidth + "px";
+      return canvasWidth;
+    },
+    getDeviceHeight: function(img) {
+      const width = img.width,
+        height = img.height;
+      const canvasHeight = parseInt((this.weChatWidth / width) * height);
+      this.canvas.height = canvasHeight / 2;
+      img.height = canvasHeight / 2;
+      const domObj = document.getElementById("canbox");
+      domObj.style.height = canvasHeight / 2 + "px";
+      return canvasHeight;
+    },
 
     drawBgImage: function() {
       //背景图设置
@@ -158,21 +177,10 @@ var h5Intance = new Vue({
       var qrCodeimg = this.convertCanvasToImage(mycans);
 
       img.onload = () => {
-        const width = img.width,
-          height = img.height;
-
-        const canvasWidth = this.weChatWidth;
-        const canvasHeight = parseInt((this.weChatWidth / width) * height);
-
-        this.canvas.width = canvasWidth;
-        this.canvas.height = canvasHeight;
-        img.width = canvasWidth;
-        img.height = canvasHeight;
-        const domObj = document.getElementById("canbox");
-        domObj.style.width = canvasWidth + "px";
-        domObj.style.height = canvasHeight + "px";
+        let canvasWidthResult = this.getDeviceWidth(img);
+        let canvasHeightResult = this.getDeviceHeight(img) / 2;
         // 画背景图
-        this.ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+        this.ctx.drawImage(img, 0, 0, canvasWidthResult, canvasHeightResult);
         // 画二维码
         this.ctx.drawImage(
           qrCodeimg,
