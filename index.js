@@ -143,19 +143,11 @@ var h5Intance = new Vue({
 
     // 绘制文字
     drawText: function(data) {
-      console.log(data);
       this.ctx.font = data.font;
       this.ctx.fillText(data.text, data.x, data.y);
     },
 
     drawBgImage: function() {
-      //画海报
-      // var width = document.getElementById("canbox").offsetWidth; //宽度
-      // var height = document.getElementById("canbox").offsetHeight; // 高度
-      // var c = document.getElementById("myCanvas");
-      // c.width = width;
-      // c.height = height;
-      // var ctx = c.getContext("2d");
       //背景图设置
       var img = new Image();
       img.src = this.expressData.data.imgPath;
@@ -211,7 +203,6 @@ var h5Intance = new Vue({
     }
   },
   mounted: function() {
-    // this.getImgUrl();
     this.canvas = document.getElementById("myCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.getQrcodeImg(
