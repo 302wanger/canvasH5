@@ -84,7 +84,6 @@ let h5Intance = new Vue({
           console.log("error --->>>---", error);
         });
     },
-
     // 查询页面参数
     getQueryParams: function() {
       let params = {};
@@ -98,7 +97,6 @@ let h5Intance = new Vue({
 
       return params;
     },
-
     // 获取二维码链接，并生成图片
     getQrcodeImg: function(url, widthNum) {
       let qrcode = new QRCode("qrcode", {
@@ -110,7 +108,6 @@ let h5Intance = new Vue({
         correctLevel: QRCode.CorrectLevel.H
       });
     },
-
     convertCanvasToImage: function(canvas) {
       let image = new Image();
       image.src = canvas.toDataURL("image/png");
@@ -127,7 +124,6 @@ let h5Intance = new Vue({
       ctx.drawImage(img, x, y, d, d);
       ctx.restore();
     },
-
     // 绘制图片
     myDrawImg: function(data) {
       let img = new Image();
@@ -140,7 +136,6 @@ let h5Intance = new Vue({
       };
       img.src = data.imgUrl;
     },
-
     // 绘制文字
     drawText: function(data) {
       this.ctx.font = data.font;
@@ -189,7 +184,6 @@ let h5Intance = new Vue({
           this.expressData.data.qrCodeUrl.width,
           this.expressData.data.qrCodeUrl.height
         );
-
         // 生成文案与图片
         for (let i = 0; i < this.expressData.data.list.length; i++) {
           let value = this.expressData.data.list[i];
